@@ -104,7 +104,15 @@ RUN buildDeps="" \
     pkg-config postgresql-client-14 nodejs \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
-    && npm install mjml --no-cache-dir
+# mjml has to be install differently here because after node 14,
+# docker will install npm files at the root directoy and fail,
+# so we have to create a new directory and use it for the install
+    && mkdir -p /tmp/node_install
+
+WORKDIR /tmp/node_install
+
+RUN npm install mjml --no-cache-dir \
+    && mv node_modules/mjml /node_modules
 
 EXPOSE 8000
 VOLUME /var/lib/dispatch/files
