@@ -87,7 +87,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt bullseye-pgdg main" > /etc/apt/sources.list.d/pgdg.list \
     && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 
-RUN wget --quiet -O - https://deb.nodesource.com/setup_12.x | bash -
+RUN wget --quiet -O - https://deb.nodesource.com/setup_16.x | bash -
 
 COPY --from=sdist /dist/*.whl /tmp/dist/
 RUN buildDeps="" \
